@@ -11,7 +11,7 @@ class avl_tree:
     def __init__(self):
         self.root = None
         self.last = None
-    def balanse(self, x): # rotations
+    def _balance(self, x): # rotations
         if not x:
             return
         left_h = x.left.height if x.left else 0
@@ -153,7 +153,7 @@ class avl_tree:
             else:
                 self.last.right = node(x, self.last)
             while self.last:
-                if self.balanse(self.last): # if balance True once - change heights for all nodes in chain!
+                if self._balance(self.last): # if balance True once - change heights for all nodes in chain!
                     self.last = self.last.parent.parent
                 else:
                     self.last = self.last.parent
@@ -178,7 +178,7 @@ class avl_tree:
                 last.parent.right = None
             temp = last.parent
             while temp != start_parent:
-                if self.balanse(temp):
+                if self._balance(temp):
                     temp = temp.parent.parent
                 else:
                     temp = temp.parent
@@ -221,7 +221,7 @@ class avl_tree:
                 else:
                     temp = self.root = None
             while temp:# one excess step when root?
-                if self.balanse(temp):
+                if self._balance(temp):
                     temp = temp.parent.parent
                 else:
                     temp = temp.parent
